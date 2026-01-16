@@ -1,0 +1,31 @@
+\begin{table}[htbp]
+\centering
+\caption{Cost-Weighted Mutation Metrics (v1.6.0 Re-analysis)}
+\label{tab:cost-weighted}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Metric} & \textbf{Baseline} & \textbf{Stability} & \textbf{Hybrid} \\
+\midrule
+\multicolumn{4}{l}{\textit{Count-Based (v1.5.0)}} \\
+Re-embed Fraction (\%) & 60.7 & 63.3 & 69.7 \\
+Added Chunks & 111 & 69 & 83 \\
+\midrule
+\multicolumn{4}{l}{\textit{Byte-Weighted (v1.6.0 Primary)}} \\
+Re-embed Bytes (KB) & 182.0 & 185.6 & 82.9 \\
+Re-embed Fraction (\%) & 40.9 & 42.6 & 31.5 \\
+\midrule
+\multicolumn{4}{l}{\textit{Localization}} \\
+Localization Efficiency & 61.3\% & 94.2\% & 80.7\% \\
+\midrule
+\multicolumn{4}{l}{\textit{Structural}} \\
+Total Chunks & 92 & 55 & 67 \\
+Mean Chunk Size (B) & 1683 & 2742 & 711 \\
+Micro-chunk Fraction & -- & -- & 52.2\% \\
+\midrule
+\multicolumn{4}{l}{\textit{Neighbor Churn}} \\
+Top-k Overlap & 0.428 & 0.318 & 0.347 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\caption*{\footnotesize Byte-weighted re-embed cost reverses ranking: hybrid achieves 54\% lower mutation cost than baseline despite higher chunk count.}
+\end{table}

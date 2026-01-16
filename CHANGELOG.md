@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-01-16
+
+### Added
+- Cost-weighted mutation metrics (byte-weighted re-embed fraction)
+- `scripts/compute_cost_weighted_metrics.py` for post-hoc re-analysis
+- Localization efficiency metric for edit window containment
+
+### Results
+- Byte-weighted re-embed: Baseline 40.9%, Stability 42.6%, Hybrid 31.5%
+- Hybrid achieves 54% lower mutation cost than baseline under byte-weighted metrics
+- Ranking reversal: Hybrid now best (was worst under count-based)
+
+### Technical Notes
+- **v1.5.0 Takeaway:** Hybrid chunking increased raw re-embed fraction because localized micro-chunking converts few large invalidations into many small ones. Raw chunk-count metrics therefore overstate mutation cost. Localization efficiency (80.7%) indicates that hybrid chunking confines change impact, motivating cost-weighted mutation metrics.
+- Measurement-only cycle: no changes to chunking, embedding, or FAISS logic
+- AGENT prompt used: `AGENT/1768595902-in.md`
+
+### Paper Artifacts
+- `paper/tables/temporal_cost_weighted_v1.5.0.tex`
+- `paper/figures/temporal_cost_weighted_v1.5.0.pdf`
+- `paper/figures/cost_localization_curves_v1.5.0.pdf`
+
 ## [1.5.0] - 2026-01-16
 
 ### Added
