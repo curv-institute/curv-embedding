@@ -1,95 +1,140 @@
-% Stability-Driven Chunking for Vector Database Embeddings
-% CURV Institute
+% Full paper LaTeX for arXiv submission
+% Two-column formatting and flow matched to prior CURV/arXiv paper style
+% Auto-built via pre-commit hook
 
-\documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt]{article}
+
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
-\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
 
-% Placeholder macro for generated content
-\newcommand{\placeholder}[1]{\textcolor{red}{[#1]}}
+% Make section headers ragged right to avoid word spacing issues
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+{-3.5ex \@plus -1ex \@minus -.2ex}{2.3ex \@plus.2ex}%
+{\raggedright\normalfont\Large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+{-3.25ex\@plus -1ex \@minus -.2ex}{1.5ex \@plus .2ex}%
+{\raggedright\normalfont\large\bfseries}}
+\makeatother
 
-\title{Stability-Driven Chunking for Vector Database Embeddings}
+\geometry{margin=0.75in}
+\setlength{\columnsep}{20pt}
+\tolerance=2000
+\emergencystretch=3em
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
 
-\author{CURV Institute}
+\title{Stability-Driven Chunking and Representational Reranking for Dynamic Vector Databases}
 
-\date{\today}
+\author{%
+J.~W.~Miller\\
+CURV Institute\\
+\texttt{j.w.miller@curv.institute}
+}
+
+\date{January 2026}
 
 \begin{document}
 
+\twocolumn[
 \maketitle
-
 \begin{abstract}
-\placeholder{Abstract to be generated from experimental results.}
+Vector databases are increasingly used in dynamic settings where documents are incrementally ingested, edited, and queried over time. In such regimes, heuristic chunking and similarity-based retrieval can lead to unstable embeddings, excessive re-indexing, and inconsistent retrieval behavior. In this work, we present a staged empirical study of stability-driven chunking and representational reranking for vector databases. We show that chunking based on representational stability produces fewer, more coherent chunks and supports streaming ingestion with bounded deviation from offline segmentation. We report a negative result demonstrating that stability-driven chunking is more sensitive to localized edits under naive, count-based mutation metrics. We then show that this apparent failure is a measurement artifact: when mutation cost is measured in bytes rather than chunk counts, a hybrid chunking policy that combines stability-driven base chunks with localized overlapping micro-chunks achieves the lowest effective update cost. Finally, we demonstrate that representational reranking improves retrieval robustness in the tails, increasing worst-case reformulation stability without affecting mutation cost or determinism. Together, these results disentangle representational coherence, mutation tolerance, and retrieval robustness, and highlight the importance of cost-aligned metrics in evaluating dynamic vector retrieval systems.
 \end{abstract}
+\vspace{1em}
+]
 
 \section{Introduction}
+Vector similarity search has become a core component of modern retrieval-augmented generation, agent memory systems, and long-lived knowledge bases. Most vector database systems rely on heuristic chunking strategies---such as fixed-size segments with overlap---combined with approximate nearest-neighbor (ANN) search using cosine or Euclidean similarity. While effective in static benchmarks, these choices implicitly assume stable embeddings and infrequent updates.
 
-\placeholder{Introduction referencing PRH (arXiv:2405.07987).}
+In practice, many vector databases operate under continuous ingestion and localized edits. Under such conditions, naive chunking can induce excessive re-embedding, index churn, and retrieval instability. These effects are often invisible to benchmark-style evaluations, which emphasize static accuracy rather than temporal behavior.
 
-\section{Method}
-
-\subsection{Cut-Score Formulation}
-
-\placeholder{Cut-score algorithm description.}
-
-\subsection{Offline Chunking}
-
-\placeholder{Offline chunking procedure.}
-
-\subsection{Streaming Chunking}
-
-\placeholder{Streaming chunking procedure.}
+This paper investigates chunking and retrieval strategies through the lens of stability. Rather than optimizing for semantic accuracy alone, we ask how chunking and retrieval choices affect structural coherence, mutation tolerance, and robustness over time. We conduct a staged experimental program that isolates these axes and reports both positive and negative results.
 
 \section{Experimental Setup}
+We study a vector database pipeline consisting of deterministic chunking, fixed embedding generation, FAISS-based ANN indexing, and SQLite-backed metadata storage. All experiments are deterministic and reproducible, with per-run manifests recording configuration, versioning, and diagnostics. Unless otherwise noted, cosine similarity is used for ANN candidate generation.
 
-\placeholder{Dataset, embedding model, evaluation protocol.}
+Chunking strategies evaluated include fixed-size overlapping chunking, stability-driven chunking based on representational strain signals, and a hybrid policy that combines stability-driven base chunks with localized overlapping micro-chunks in edit regions. Retrieval experiments compare ANN-only retrieval with representational reranking based on stored stability diagnostics.
 
 \section{Results}
 
-\subsection{Embedding Drift}
+\subsection{Stability-Driven Chunking Effects (v1.2.0)}
+Stability-driven chunking produces substantially fewer chunks with larger mean size compared to fixed-size heuristics (Table~\ref{tab:chunking-structure}). Boundaries are placed at points of elevated representational strain rather than arbitrary length thresholds, preserving coherent regions as single units. This reduces index size and ingest-time maintenance overhead, demonstrating that stability signals materially influence segmentation behavior.
 
-\placeholder{Drift results.}
+\input{tables/experiment_summary_v1.1.0}
 
-% Include generated table
-% \input{tables/drift_results.tex}
+\subsection{Streaming Parity with Offline Segmentation (v1.3.0)}
+Under bounded lookahead, streaming execution closely approximates offline stability-driven segmentation. Boundary overlap exceeds 97\% within a $\pm$256-byte tolerance, with deviations localized near the commit horizon (Figure~\ref{fig:streaming-parity}). Chunk size distributions remain well-behaved, confirming compatibility with live ingestion pipelines.
 
-\subsection{Neighbor Churn}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/chunk_parity_overlap_v1.2.0-parity-20260116}
+\caption{Streaming vs.\ offline boundary overlap at varying tolerances. Overlap exceeds 97\% at $\pm$256 bytes.}
+\label{fig:streaming-parity}
+\end{figure}
 
-\placeholder{Churn results.}
+\subsection{Negative Result: Mutation Sensitivity Under Count-Based Metrics (v1.4.0)}
+When evaluated under localized edits, stability-driven chunking exhibits higher apparent mutation sensitivity than fixed-size overlapping chunking when measured using count-based metrics (Table~\ref{tab:temporal-count}). Baseline chunking preserves more unchanged chunks and higher neighbor overlap over time. This negative result reflects the larger granularity of stability-driven chunks, where any edit invalidates the entire chunk.
 
-% \input{tables/churn_results.tex}
+\input{tables/temporal_stability_v1.3.0-20260116}
 
-\subsection{Retrieval Stability}
+\subsection{Hybrid Chunking and Localization of Change (v1.5.0)}
+To address mutation sensitivity, we introduce a hybrid policy that applies stability-driven chunking globally while re-chunking only local edit windows using overlapping micro-chunks. Hybrid chunking localizes 80.7\% of re-embeds to edit regions and partially recovers temporal stability relative to stability-only chunking (Table~\ref{tab:hybrid}). However, under raw chunk-count metrics, hybrid chunking appears worse due to increased micro-chunk counts.
 
-\placeholder{Overlap results under reformulation.}
+\input{tables/temporal_hybrid_v1.4.0-20260116}
 
-% \input{tables/overlap_results.tex}
+\subsection{Metric Correction: Cost-Weighted Mutation Analysis (v1.6.0)}
+Count-based mutation metrics implicitly treat all chunks as equal cost, mischaracterizing hybrid policies that intentionally vary granularity. When mutation cost is measured in bytes rather than chunk counts, the ranking reverses (Table~\ref{tab:cost-weighted}). Hybrid chunking reduces effective mutation cost by 54\% relative to the baseline, resolving the apparent contradiction observed under count-based metrics.
 
-\subsection{Maintenance Cost}
+\input{tables/temporal_cost_weighted_v1.5.0}
 
-\placeholder{Re-embedding and rebuild metrics.}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/temporal_cost_weighted_v1.5.0}
+\caption{Count-based vs.\ byte-weighted mutation metrics. Hybrid chunking appears worst under count-based metrics but best under byte-weighted cost.}
+\label{fig:cost-weighted}
+\end{figure}
+
+\subsection{Representational Reranking Improves Retrieval Robustness (v2.0.0)}
+Finally, we evaluate representational reranking as a retrieval-layer modification atop the cost-corrected hybrid baseline. Representational reranking yields modest improvements in mean reformulation overlap (+2.3\%) and substantially improves worst-case behavior, increasing P10 overlap by 14.3\% (Table~\ref{tab:rerank}). A random reranking control collapses performance, confirming that gains arise from representational signals. Importantly, reranking does not affect mutation cost or determinism.
+
+\input{tables/rerank_stability_v2.0.0}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/rerank_overlap_v2.0.0}
+\caption{Reformulation overlap comparison across retrieval modes. Representational reranking improves over ANN baseline; random control demonstrates that stability gains are signal-dependent.}
+\label{fig:rerank-overlap}
+\end{figure}
 
 \section{Discussion}
+Across all experiments, three competing axes emerge: representational coherence, mutation tolerance, and retrieval robustness. Stability-driven chunking optimizes coherence; fixed-size overlapping chunking optimizes mutation tolerance; representational reranking improves robustness in the tails. No single mechanism optimizes all three simultaneously.
 
-\placeholder{Trade-offs, limitations, relation to PRH.}
+A central finding is that metric choice fundamentally alters system evaluation. Count-based mutation metrics overstate the cost of localized micro-chunking, while byte-weighted metrics align with actual embedding and index maintenance costs. Under cost-aligned metrics, hybrid chunking dominates baseline heuristics.
+
+Hybrid policies do not eliminate trade-offs but localize them, making system behavior predictable and bounded under updates. Representational reranking further improves robustness without attempting to replace similarity-based retrieval. Together, these results suggest that dynamic vector databases should decouple segmentation, mutation handling, and retrieval ranking, and should evaluate systems using cost-aligned metrics rather than static benchmarks.
+
+\section{Related Work}
+The Platonic Representation Hypothesis~\cite{huh2024platonic} suggests that representations across modalities converge toward shared geometric structure. Our stability diagnostics operationalize a subset of these ideas for chunking and retrieval, though we use proxy signals rather than full representational analysis.
+
+\section{Limitations}
+This study uses proxy stability diagnostics rather than full representational signals, limiting the magnitude of reranking gains. Experiments are conducted at moderate scale and focus on controlled update patterns. Extending these methods with richer diagnostics or learned components is left to future work.
 
 \section{Conclusion}
-
-\placeholder{Summary consistent with measured results.}
+We present a comprehensive empirical study of chunking and retrieval strategies for dynamic vector databases. By disentangling structural coherence, mutation tolerance, and retrieval robustness, and by correcting misaligned evaluation metrics, we show that hybrid chunking combined with representational reranking provides a principled and robust design for evolving vector stores. These findings highlight the importance of stability-aware design and cost-aligned evaluation in real-world vector retrieval systems.
 
 \section*{Acknowledgments}
-
 These diagnostics were developed as part of a broader internal CURV Institute representation-first framework; only the operational components relevant to the experiments are used here.
 
 \bibliographystyle{plain}
 \bibliography{references}
 
 \appendix
-
 \input{artifact_appendix}
 
 \end{document}

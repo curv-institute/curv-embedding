@@ -1,13 +1,13 @@
-\begin{table}[htbp]
+\begin{table*}[htbp]
 \centering
 \caption{Hybrid Chunking Comparison (commit\_horizon=1024 bytes)}
-\label{tab:hybrid-comparison}
+\label{tab:hybrid}
 \begin{tabular}{lrrr}
 \toprule
 \textbf{Metric} & \textbf{Baseline} & \textbf{Stability} & \textbf{Hybrid} \\
 \midrule
 \multicolumn{4}{l}{\textit{Mutation Tolerance}} \\
-Re-embed Fraction & 60.7% & 63.3% & 69.7% \\
+Re-embed Fraction & 60.7\% & 63.3\% & 69.7\% \\
 Chunks Unchanged & 72 & 40 & 36 \\
 \midrule
 \multicolumn{4}{l}{\textit{Neighbor Churn}} \\
@@ -16,10 +16,10 @@ Top-k Overlap & 0.428 & 0.318 & 0.347 \\
 \multicolumn{4}{l}{\textit{Structural Overhead}} \\
 Total Chunks & 92 & 55 & 67 \\
 Mean Chunk Size & 1683 & 2742 & 711 \\
-Micro-chunk Fraction & -- & -- & 52.2% \\
+Micro-chunk Fraction & -- & -- & 52.2\% \\
 \midrule
 \multicolumn{4}{l}{\textit{Localization (Hybrid only)}} \\
-Localization Efficiency & -- & -- & 80.7% \\
+Localization Efficiency & -- & -- & 80.7\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
