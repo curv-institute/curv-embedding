@@ -1,0 +1,32 @@
+\begin{table}[htbp]
+\centering
+\caption{Streaming Chunking Parity with Offline Chunking}
+\label{tab:streaming-parity}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Offline} & \textbf{Streaming} \\
+\midrule
+\multicolumn{3}{l}{\textit{Chunk Count}} \\
+Total Chunks & 567 & 752 \\
+Delta & \multicolumn{2}{c}{+32.6\%} \\
+\midrule
+\multicolumn{3}{l}{\textit{Size Distribution (bytes)}} \\
+Mean & 2990 & 2270 \\
+P50 & 3187 & 2475 \\
+P90 & 3972 & 3878 \\
+\midrule
+\multicolumn{3}{l}{\textit{Target Alignment ($\pm$10\% of L\_target)}} \\
+\% Within Target & 7.2\% & 6.8\% \\
+\midrule
+\multicolumn{3}{l}{\textit{Boundary Overlap (recall)}} \\
+Exact ($\pm$0 bytes) & \multicolumn{2}{c}{49.0\%} \\
+$\pm$16 bytes & \multicolumn{2}{c}{58.2\%} \\
+$\pm$64 bytes & \multicolumn{2}{c}{77.1\%} \\
+$\pm$256 bytes & \multicolumn{2}{c}{97.5\%} \\
+\midrule
+\multicolumn{3}{l}{\textit{Distribution Distance}} \\
+Wasserstein-1 & \multicolumn{2}{c}{719.9 bytes} \\
+KS Statistic & \multicolumn{2}{c}{0.278} \\
+\bottomrule
+\end{tabular}
+\end{table}

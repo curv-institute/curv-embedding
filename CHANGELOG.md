@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-01-16
+
+### Added
+- Streaming chunking parity evaluation (offline vs streaming mode comparison)
+- `scripts/run_parity_experiment.py` for automated parity analysis
+- Boundary overlap metrics at multiple tolerances (0, 16, 64, 256 bytes)
+- Wasserstein-1 distance and KS statistic for size distribution comparison
+- `%within_10pct_target` alignment metric for both modes
+
+### Results
+- Boundary overlap: 97.5% at ±256 bytes tolerance
+- Streaming produces 32.6% more chunks (752 vs 567)
+- Wasserstein-1 distance: 719.9 bytes between size distributions
+
+### Paper Artifacts
+- `paper/tables/chunk_parity_v1.2.0-parity-20260116.tex`
+- `paper/figures/chunk_parity_sizes_v1.2.0-parity-20260116.pdf`
+- `paper/figures/chunk_parity_overlap_v1.2.0-parity-20260116.pdf`
+
+### Technical Notes
+- Hypothesis confirmed: streaming approximates offline within commit horizon
+- AGENT prompt used: `AGENT/1768592643-in.md`
+
 ## [1.2.0] - 2026-01-16
 
 ### Added

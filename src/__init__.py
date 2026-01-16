@@ -5,4 +5,4 @@ This package implements stability-driven automatic chunking for vector database
 embeddings, supporting both offline preprocessing and streaming ingestion.
 """
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
