@@ -117,6 +117,25 @@ class DiagnosticsConfig:
 
 
 @dataclass
+class RerankConfig:
+    """Representational reranking configuration.
+
+    v2.0.0: Introduces reranking over ANN candidates using stored
+    stability and strain diagnostics.
+    """
+
+    enabled: bool = True
+    mode: str = "ann_repr"  # ann, ann_random, ann_repr
+    K0: int = 200  # Candidate set size
+    k: int = 10  # Final result size
+    alpha: float = 1.0  # Weight for cosine similarity
+    beta: float = 0.6  # Weight for strain penalty
+    gamma: float = 0.4  # Weight for boundary penalty
+    delta: float = 0.2  # Weight for instability risk
+    seed: int = 1337
+
+
+@dataclass
 class GeneralConfig:
     """General experiment parameters."""
 
@@ -137,6 +156,7 @@ class Config:
     eval: EvalConfig = field(default_factory=EvalConfig)
     baseline: BaselineConfig = field(default_factory=BaselineConfig)
     diagnostics: DiagnosticsConfig = field(default_factory=DiagnosticsConfig)
+    rerank: RerankConfig = field(default_factory=RerankConfig)
 
     @classmethod
     def from_toml(cls, path: str | Path) -> Config:
@@ -158,6 +178,7 @@ class Config:
             eval=EvalConfig(**data.get("eval", {})),
             baseline=BaselineConfig(**data.get("baseline", {})),
             diagnostics=DiagnosticsConfig(**data.get("diagnostics", {})),
+            rerank=RerankConfig(**data.get("rerank", {})),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -171,6 +192,7 @@ class Config:
             "eval": self.eval.__dict__,
             "baseline": self.baseline.__dict__,
             "diagnostics": self.diagnostics.__dict__,
+            "rerank": self.rerank.__dict__,
         }
 
     def config_hash(self) -> str:

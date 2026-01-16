@@ -1,0 +1,24 @@
+\begin{table}[htbp]
+\centering
+\caption{Representational Reranking Results (v2.0.0)}
+\label{tab:rerank-stability}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Metric} & \textbf{ANN} & \textbf{Random} & \textbf{Repr} \\
+\midrule
+\multicolumn{4}{l}{\textit{Retrieval Stability}} \\
+Reformulation Overlap & 0.887 & 0.201 & 0.907 \\
+Overlap P10 & 0.700 & 0.100 & 0.800 \\
+\midrule
+\multicolumn{4}{l}{\textit{Boundary Robustness}} \\
+Structural Boundary Frac & 0.000 & 0.000 & 0.000 \\
+\midrule
+\multicolumn{4}{l}{\textit{Rerank Characteristics}} \\
+Disagreement Rate & -- & 0.983 & 0.878 \\
+Mean Rank Shift & -- & 3.3 & 2.4 \\
+Max Rank Shift & -- & 9 & 9 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\caption*{\footnotesize Representational reranking improves reformulation overlap by 2.3\% over ANN baseline.}
+\end{table}

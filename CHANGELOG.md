@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-01-16
+
+### Added
+- Representational reranking over ANN candidates using stability diagnostics
+- `src/eval/reranker.py` — RepresentationalReranker module
+- `scripts/run_rerank_experiment.py` — Three-mode rerank evaluation
+- RerankConfig with alpha, beta, gamma, delta weights and K0/k parameters
+- Reranking formula: score = alpha*sim - beta*strain - gamma*boundary - delta*risk
+
+### Results
+- Reformulation Overlap: ANN 88.7%, Random 20.1%, Repr 90.7%
+- Repr improves overlap by 2.3% over ANN baseline
+- P10 overlap improved from 0.700 to 0.800 (+14.3% worst-case improvement)
+- Disagreement rate: 87.8% (active reranking, local adjustments)
+
+### Technical Notes
+- **v1.6.0 Context:** Count-based mutation metrics mischaracterized hybrid chunking by treating all chunks as equal cost. Byte-weighted metrics showed that hybrid chunking reduces effective mutation cost by 54% relative to baseline, resolving the apparent negative result and establishing hybrid chunking as the correct base policy for dynamic vector stores.
+- First cycle that changes retrieval behavior, not chunking or embedding
+- AGENT prompt used: `AGENT/1768597042-in.md`
+
+### Paper Artifacts
+- `paper/tables/rerank_stability_v2.0.0.tex`
+- `paper/figures/rerank_overlap_v2.0.0.pdf`
+- `paper/figures/rerank_boundary_v2.0.0.pdf`
+
 ## [1.6.0] - 2026-01-16
 
 ### Added
