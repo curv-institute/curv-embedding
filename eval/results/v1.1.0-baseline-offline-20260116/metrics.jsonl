@@ -1,0 +1,5 @@
+{"timestamp": "2026-01-16T19:30:03.307851+00:00", "method": "baseline", "metric": "chunk_count", "value": 867}
+{"timestamp": "2026-01-16T19:30:03.307971+00:00", "method": "baseline", "metric": "mean_chunk_size", "value": 1977.674740484429}
+{"timestamp": "2026-01-16T19:33:07.750512+00:00", "method": "stability", "metric": "chunk_count", "value": 567}
+{"timestamp": "2026-01-16T19:33:07.750669+00:00", "method": "stability", "metric": "mean_chunk_size", "value": 2990.2486772486773}
+{"timestamp": "2026-01-16T19:33:07.751013+00:00", "metric": "maintenance_comparison", "data": {"reembed_fraction": 0.6539792387543253, "added_chunks": 567, "removed_chunks": 867, "unchanged_chunks": 0, "total_chunks_old": 867, "total_chunks_new": 567, "tombstone_count": 867, "tombstone_rate": 0.604602510460251, "index_rebuild_required": true, "index_rebuild_events": 1}}

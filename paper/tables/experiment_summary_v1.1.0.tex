@@ -1,0 +1,28 @@
+% Experiment Summary Table - v1.1.0 Matrix
+% Generated from eval/results/v1.1.0-baseline-offline-20260116/metrics.jsonl
+% Diagnostic mode: proxy_entropy (K=byte_entropy, S=inverse_variance, B=newlines)
+
+\begin{table}[htbp]
+\centering
+\caption{Chunking Method Comparison (v1.1.0 Baseline vs Stability-Driven)}
+\label{tab:experiment-summary}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Baseline (Fixed)} & \textbf{Stability-Driven} \\
+\midrule
+\multicolumn{3}{l}{\textit{Chunk Statistics}} \\
+Total Chunks & 867 & 567 \\
+Mean Chunk Size (bytes) & 1,978 & 2,990 \\
+Chunk Reduction & --- & $-34.6\%$ \\
+\midrule
+\multicolumn{3}{l}{\textit{Maintenance Cost (vs Baseline)}} \\
+Re-embed Fraction & --- & $65.4\%$ \\
+Index Rebuild Required & --- & Yes \\
+\midrule
+\multicolumn{3}{l}{\textit{Configuration}} \\
+Target Chunk Size (bytes) & 2,048 & 2,048 \\
+Min/Max Bounds (bytes) & 256--4,096 & 256--4,096 \\
+Overlap (bytes) & 64 & 64 \\
+\bottomrule
+\end{tabular}
+\end{table}

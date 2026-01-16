@@ -208,7 +208,7 @@ def run_experiment(
             data_manifest = json.load(f)
         documents = []
         corpus_dir = data_dir / "corpus"
-        for doc_id in data_manifest.get("document_ids", []):
+        for doc_id in data_manifest.get("doc_ids", data_manifest.get("document_ids", [])):
             # Find the file
             for ext in [".txt", ".py", ".json", ".log"]:
                 fpath = corpus_dir / f"{doc_id}{ext}"

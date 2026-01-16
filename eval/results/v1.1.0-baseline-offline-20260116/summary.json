@@ -1,0 +1,13 @@
+{
+  "run_id": "20260116_192941_ef8c60fd",
+  "run_name": "v1.1.0-baseline-offline-20260116",
+  "config_hash": "ef8c60fd2dc1df4b",
+  "timestamp": "2026-01-16T19:33:07.751086+00:00",
+  "baseline": {
+    "num_chunks": 867
+  },
+  "stability": {
+    "num_chunks": 567
+  },
+  "common_content_hashes": 0
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "family_id": "family_0000",
+    "queries": [
+      "Look up atabo in the documents",
+      "Find information regarding atabo",
+      "Find text discussing atabo",
+      "What is written about atabo?",
+      "What does the text say about atabo?",
+      "Search for content mentioning atabo",
+      "Retrieve passages about atabo",
+      "Show me content related to atabo",
+      "look up atabo in the documents",
+      "FIND INFORMATION REGARDING ATABO"
+    ],
+    "target_anchor_ids": [
+      "text_00009d00_anchor_0003"
+    ],
+    "source_domain": "text",
+    "source_doc_id": "text_00009d00"
+  },
+  {
+    "family_id": "family_0001",
+    "queries": [
+      "Find the implementation of def",
+      "Look up the code for def",
+      "Find where def is defined",
+      "Show me the def function",
+      "Show the def handler",
+      "Find the function that handles def",
+      "Show the code for def",
+      "Where is def implemented?",
+      "FIND THE IMPLEMENTATION OF DEF",
+      "Please show the code for def"
+    ],
+    "target_anchor_ids": [
+      "code_00003928_anchor_0016"
+    ],
+    "source_domain": "code",
+    "source_doc_id": "code_00003928"
+  },
+  {
+    "family_id": "family_0002",
+    "queries": [
+      "Look up the code for return",
+      "Find the function that handles return",
+      "Find where return is defined",
+      "Find the implementation of return",
+      "Show the return handler",
+      "Show the code for return",
+      "Where is return implemented?",
+      "Show me the return function",
+      "Look up the code for return?",
+      "Find the function that handles return?"
+    ],
+    "target_anchor_ids": [
+      "code_000044e0_anchor_0009"
+    ],
+    "source_domain": "code",
+    "source_doc_id": "code_000044e0"
+  },
+  {
+    "family_id": "family_0003",
+    "queries": [
+      "Find the Etasa log entries",
+      "Show log messages for Etasa",
+      "Show logs mentioning Etasa",
+      "Find log entries about Etasa",
+      "Look up logs containing Etasa",
+      "Look up Etasa in the logs",
+      "Find errors related to Etasa",
+      "Show events about Etasa",
+      "SHOW LOG MESSAGES FOR ETASA",
+      "Show log messages for Etasa?"
+    ],
+    "target_anchor_ids": [
+      "logs_000014ae_anchor_0004"
+    ],
+    "source_domain": "logs",
+    "source_doc_id": "logs_000014ae"
+  },
+  {
+    "family_id": "family_0004",
+    "queries": [
+      "Where is value implemented?",
+      "Show the value handler",
+      "Find where value is defined",
+      "Show the code for value",
+      "Look up the code for value",
+      "Find the implementation of value",
+      "Find the function that handles value",
+      "Show me the value function",
+      "SHOW THE CODE FOR VALUE",
+      "Show me the value function?"
+    ],
+    "target_anchor_ids": [
+      "code_000044e0_anchor_0029"
+    ],
+    "source_domain": "code",
+    "source_doc_id": "code_000044e0"
+  }
+]

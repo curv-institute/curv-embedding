@@ -1,0 +1,82 @@
+{
+  "run_id": "20260116_192941_ef8c60fd",
+  "run_name": "v1.1.0-baseline-offline-20260116",
+  "git_version": {
+    "tag": null,
+    "commit": "ee5b6f755095",
+    "dirty": true
+  },
+  "config": {
+    "general": {
+      "seed": 42,
+      "output_dir": "eval/results",
+      "log_level": "INFO"
+    },
+    "chunking": {
+      "min_bytes": 256,
+      "max_bytes": 4096,
+      "overlap_bytes": 64,
+      "commit_horizon_bytes": 1024,
+      "L_target_bytes": 2048,
+      "wK": 1.0,
+      "wD": 0.8,
+      "wS": 0.6,
+      "wB": 2.0,
+      "wL": 0.5,
+      "k0": 0.5,
+      "d0": 0.5,
+      "s0": 0.5,
+      "use_lil_boundaries": true,
+      "use_curvature": true,
+      "use_disharmony": false,
+      "use_stability_margin": true,
+      "soft_trigger_threshold": 1.5,
+      "soft_trigger_sustain_steps": 3
+    },
+    "embedding": {
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "model_version": "v2.2.2",
+      "embedding_dim": 384,
+      "batch_size": 32,
+      "normalize": true
+    },
+    "storage": {
+      "sqlite_journal_mode": "WAL",
+      "sqlite_synchronous": "NORMAL",
+      "sqlite_foreign_keys": true,
+      "faiss_index_type": "Flat",
+      "faiss_metric": "L2"
+    },
+    "eval": {
+      "top_k": [
+        10,
+        50,
+        100
+      ],
+      "drift_content_match": "sha256",
+      "probe_sample_size": 1000,
+      "boundary_window_bytes": 256,
+      "reformulation_families": 5,
+      "reformulations_per_family": 10
+    },
+    "baseline": {
+      "method": "fixed",
+      "fixed_chunk_bytes": 2048,
+      "fixed_overlap_bytes": 64
+    },
+    "diagnostics": {
+      "mode": "proxy_entropy",
+      "description": "v1.0.0 baseline uses proxy diagnostics: K=byte_entropy, S=inverse_variance, B=newlines"
+    }
+  },
+  "timestamp": "2026-01-16T19:33:07.751197+00:00",
+  "seed": 42,
+  "artifacts": {
+    "baseline_index": "eval/results/v1.1.0-baseline-offline-20260116/index_baseline.faiss",
+    "baseline_db": "eval/results/v1.1.0-baseline-offline-20260116/meta_baseline.sqlite",
+    "stability_index": "eval/results/v1.1.0-baseline-offline-20260116/index_stability.faiss",
+    "stability_db": "eval/results/v1.1.0-baseline-offline-20260116/meta_stability.sqlite",
+    "metrics": "eval/results/v1.1.0-baseline-offline-20260116/metrics.jsonl",
+    "summary": "eval/results/v1.1.0-baseline-offline-20260116/summary.json"
+  }
+}

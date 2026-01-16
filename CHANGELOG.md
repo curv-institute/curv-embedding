@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-01-16
+
+### Added
+- Run v1.1.0 experiment matrix: baseline vs stability-driven chunking (offline)
+- Generated evaluation data: 50 documents, 1.66 MB, 5556 boundaries
+- Paper-ready artifacts: `paper/tables/experiment_summary_v1.1.0.tex`
+- Chunk size comparison figure: `paper/figures/chunk_sizes_v1.1.0.pdf`
+
+### Results
+- Stability-driven chunking produces 34.6% fewer chunks (567 vs 867)
+- Mean chunk size increased 51.2% (2,990 vs 1,978 bytes)
+- Chunks better aligned with target size (2,048 bytes)
+
+### Fixed
+- `run_experiment.py`: Fixed manifest key `doc_ids` (was `document_ids`)
+
+### Technical Notes
+- Streaming mode comparison deferred (requires script enhancement)
+- AGENT prompt used: `AGENT/1768591673-in.md`
+
 ## [1.1.0] - 2026-01-16
 
 ### Added
