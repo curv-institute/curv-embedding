@@ -28,6 +28,8 @@ import argparse
 import hashlib
 import json
 import logging
+import re
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -57,6 +59,65 @@ def setup_logging(log_level: str) -> None:
         format="%(asctime)s [%(levelname)s] %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
+
+
+def get_git_version() -> dict[str, str | None]:
+    """Get current git tag and commit hash for traceability."""
+    version_info = {"tag": None, "commit": None, "dirty": False}
+
+    try:
+        # Get current commit hash
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        version_info["commit"] = result.stdout.strip()[:12]
+
+        # Get tag if on a tagged commit
+        result = subprocess.run(
+            ["git", "describe", "--tags", "--exact-match"],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            version_info["tag"] = result.stdout.strip()
+
+        # Check for uncommitted changes
+        result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            capture_output=True,
+            text=True,
+        )
+        version_info["dirty"] = bool(result.stdout.strip())
+
+    except (subprocess.SubprocessError, FileNotFoundError):
+        pass
+
+    return version_info
+
+
+def validate_run_name(run_name: str, git_version: dict) -> None:
+    """Warn if run name doesn't follow naming convention."""
+    logger = logging.getLogger(__name__)
+
+    # Check if run name contains a version pattern
+    version_pattern = r"v\d+\.\d+\.\d+"
+    has_version = bool(re.search(version_pattern, run_name))
+
+    if not has_version:
+        tag = git_version.get("tag") or f"commit-{git_version.get('commit', 'unknown')}"
+        logger.warning(
+            f"Run name '{run_name}' does not include version tag. "
+            f"Recommended: '{tag}-{run_name}' or '{run_name}_{tag}'"
+        )
+
+    if git_version.get("dirty"):
+        logger.warning(
+            "Working directory has uncommitted changes. "
+            "Results may not be reproducible from the recorded commit."
+        )
 
 
 def generate_run_id(config: Config) -> str:
@@ -117,12 +178,19 @@ def run_experiment(
     """Run complete experiment."""
     logger = logging.getLogger(__name__)
 
+    # Get git version for traceability
+    git_version = get_git_version()
+
+    # Validate run name follows convention
+    validate_run_name(run_name, git_version)
+
     # Setup
     output_dir = Path(config.general.output_dir)
     run_dir = setup_run_directory(output_dir, run_name)
     run_id = generate_run_id(config)
 
     logger.info(f"Starting experiment run: {run_name} (ID: {run_id})")
+    logger.info(f"Git version: tag={git_version.get('tag')}, commit={git_version.get('commit')}")
     logger.info(f"Output directory: {run_dir}")
 
     # Save config
@@ -364,6 +432,11 @@ def run_experiment(
     manifest = {
         "run_id": run_id,
         "run_name": run_name,
+        "git_version": {
+            "tag": git_version.get("tag"),
+            "commit": git_version.get("commit"),
+            "dirty": git_version.get("dirty", False),
+        },
         "config": config.to_dict(),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "seed": config.general.seed,

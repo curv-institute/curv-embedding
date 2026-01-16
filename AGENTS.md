@@ -64,6 +64,22 @@ eval/results/<run_name>/
   manifests/
 ```
 
+### 3A. Experiment Naming Convention (Mandatory)
+
+Run names **must** encode the git tag or version to ensure traceability:
+
+**Pattern**: `<tag>-<experiment>-<timestamp>` or `<experiment>_<tag>`
+
+**Examples**:
+- `v1.0.0-baseline-20260116` — baseline run on v1.0.0
+- `v1.0.0-ablation-nowK-20260116` — ablation study disabling curvature
+- `baseline_v1.0.0` — alternative format
+- `v1.1.0-streaming-test-20260117` — streaming mode test on v1.1.0
+
+**Rationale**: Makes it obvious which code state generated a result folder. When reviewing `eval/results/`, the version is immediately visible without opening manifests.
+
+**Enforcement**: The `manifest.json` must include both `run_name` and the git tag/commit hash for cross-validation.
+
 ### 4. Parallel Subagent Usage
 
 - Decompose tasks into independent file/module ownership whenever possible
