@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-01-16
+
+### Added
+- Run naming convention with git tag/commit traceability in manifests
+- Validate run_name format (warning-only) in `run_experiment.py`
+- Section 3A in AGENTS.md documenting mandatory naming pattern
+
+### Technical Notes
+- AGENT prompt used: `AGENT/1768591313-in.md`
+
 ## [1.0.0] - 2026-01-16
 
 ### Added
