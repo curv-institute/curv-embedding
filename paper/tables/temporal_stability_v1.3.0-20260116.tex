@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Temporal Stability Metrics (commit\_horizon=1024 bytes)}
+\label{tab:temporal-stability}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Baseline} & \textbf{Stability} \\
+\midrule
+\multicolumn{3}{l}{\textit{Embedding Drift}} \\
+Mean L2 & 0.0000 & 0.0000 \\
+P90 L2 & 0.0000 & 0.0000 \\
+\midrule
+\multicolumn{3}{l}{\textit{ANN Neighbor Churn}} \\
+Top-k Overlap & 0.531 & 0.322 \\
+\midrule
+\multicolumn{3}{l}{\textit{Maintenance Cost}} \\
+Re-embed Fraction & 52.5% & 63.4% \\
+Chunks Added & 95 & 71 \\
+Chunks Unchanged & 86 & 41 \\
+\midrule
+\multicolumn{3}{l}{\textit{Boundary Effects}} \\
+Drift (Near Boundary) & 0.0000 & 0.0000 \\
+Drift (Interior) & 0.0000 & 0.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}

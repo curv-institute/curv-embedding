@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-01-16
+
+### Added
+- Temporal stability evaluation under incremental updates
+- `scripts/run_temporal_experiment.py` for temporal experiments
+- Embedding drift, ANN neighbor churn, and maintenance cost metrics
+- Boundary-localized effect analysis with explicit commit horizon
+- Update simulation: append-only, local edits, boundary stress scenarios
+
+### Results
+- Embedding Drift: 0.0 for both methods (content-matched chunks don't drift)
+- ANN Neighbor Churn: Baseline 53.1% overlap vs Stability 32.2%
+- Maintenance Cost: Baseline 52.5% re-embed vs Stability 63.4%
+
+### Paper Artifacts
+- `paper/tables/temporal_stability_v1.3.0-20260116.tex`
+- `paper/figures/temporal_drift_v1.3.0-20260116.pdf`
+- `paper/figures/temporal_churn_v1.3.0-20260116.pdf`
+- `paper/figures/temporal_maintenance_v1.3.0-20260116.pdf`
+- `paper/figures/temporal_boundary_v1.3.0-20260116.pdf`
+
+### Technical Notes
+- Negative result: baseline showed better temporal stability than stability-driven
+- Trade-off identified: larger chunks are more vulnerable to any edit
+- Fixed-size overlap provides different form of update resilience
+- AGENT prompt used: `AGENT/1768593339-in.md`
+
 ## [1.3.0] - 2026-01-16
 
 ### Added
