@@ -1,0 +1,72 @@
+# Default configuration for curv-embedding experiments
+# All parameters are authoritative for v0.1
+
+[general]
+seed = 42
+output_dir = "eval/results"
+log_level = "INFO"
+
+[chunking]
+# Size constraints (bytes)
+min_bytes = 256
+max_bytes = 4096
+overlap_bytes = 64
+commit_horizon_bytes = 1024
+L_target_bytes = 2048
+
+# Cut-score weights (higher = more influence)
+wK = 1.0   # curvature weight
+wD = 0.8   # disharmony weight
+wS = 0.6   # stability margin (penalty) weight
+wB = 2.0   # structural boundary weight (dominates when present)
+wL = 0.5   # length constraint weight
+
+# Cut-score thresholds (z-score equivalents)
+k0 = 0.5   # curvature threshold
+d0 = 0.5   # disharmony threshold
+s0 = 0.5   # stability margin threshold (below this = unstable)
+
+# Feature toggles
+use_lil_boundaries = true
+use_curvature = true
+use_disharmony = false  # disabled for v0.1 without HHC
+use_stability_margin = true
+
+# Streaming-specific
+soft_trigger_threshold = 1.5
+soft_trigger_sustain_steps = 3
+
+[embedding]
+# Model specification (version-pinned)
+model_name = "sentence-transformers/all-MiniLM-L6-v2"
+model_version = "v2.2.2"
+embedding_dim = 384
+batch_size = 32
+normalize = true
+
+[storage]
+# SQLite settings
+sqlite_journal_mode = "WAL"
+sqlite_synchronous = "NORMAL"
+sqlite_foreign_keys = true
+
+# FAISS settings
+faiss_index_type = "Flat"  # Flat for v0.1 (exact search)
+faiss_metric = "L2"
+
+[eval]
+# Evaluation parameters
+top_k = [10, 50, 100]
+drift_content_match = "sha256"  # match by content hash
+probe_sample_size = 1000
+boundary_window_bytes = 256
+
+# Query reformulation
+reformulation_families = 5
+reformulations_per_family = 10
+
+[baseline]
+# Baseline chunking (fixed-size for comparison)
+method = "fixed"
+fixed_chunk_bytes = 2048
+fixed_overlap_bytes = 64

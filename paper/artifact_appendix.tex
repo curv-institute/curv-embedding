@@ -1,0 +1,40 @@
+% Artifact Appendix for Reproducibility
+
+\section{Artifact Appendix}
+
+\subsection{Repository}
+
+All code, data generation scripts, and experiment manifests are available at:
+\begin{center}
+\url{https://github.com/curv-institute/curv-embedding}
+\end{center}
+
+\subsection{Requirements}
+
+\begin{itemize}
+  \item Python $\geq$ 3.12
+  \item Dependencies declared via PEP 723 inline headers
+  \item Executable via \texttt{uv run}
+\end{itemize}
+
+\subsection{Reproducing Results}
+
+\begin{verbatim}
+git clone https://github.com/curv-institute/curv-embedding
+cd curv-embedding
+uv run scripts/reproduce.py --run-name <run_name>
+\end{verbatim}
+
+\subsection{Manifest Format}
+
+Each run produces:
+\begin{itemize}
+  \item \texttt{manifest.json}: Configuration snapshot and seeds
+  \item \texttt{metrics.jsonl}: Raw metric measurements
+  \item \texttt{summary.json}: Aggregated statistics
+  \item \texttt{meta.sqlite}: Full chunk and event audit log
+\end{itemize}
+
+\subsection{Compute Resources}
+
+\placeholder{Hardware specification and runtime.}

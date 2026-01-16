@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "curv-embedding: Stability-Driven Chunking for Vector Database Embeddings"
+version: 0.1.0
+date-released: 2026-01-16
+url: "https://github.com/curv-institute/curv-embedding"
+repository-code: "https://github.com/curv-institute/curv-embedding"
+license: MIT
+authors:
+  - affiliation: "CURV Institute"
+keywords:
+  - embeddings
+  - vector-database
+  - chunking
+  - stability
+  - representational-geometry
+abstract: >-
+  Stability-driven automatic chunking for vector database embeddings,
+  supporting both offline preprocessing and streaming ingestion.
+  Demonstrates improvements in retrieval stability and maintenance cost
+  through chunking based on representational stability diagnostics.
+references:
+  - type: article
+    title: "The Platonic Representation Hypothesis"
+    authors:
+      - family-names: Huh
+        given-names: Minyoung
+      - family-names: Cheung
+        given-names: Brian
+      - family-names: Wang
+        given-names: Tongzhou
+      - family-names: Isola
+        given-names: Phillip
+    year: 2024
+    identifiers:
+      - type: other
+        value: "arXiv:2405.07987"
