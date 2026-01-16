@@ -48,6 +48,20 @@ class ChunkingConfig:
 
 
 @dataclass
+class HybridConfig:
+    """Hybrid chunking parameters.
+
+    Combines stability-driven base chunks with localized overlapping
+    micro-chunks in edit windows for improved mutation tolerance.
+    """
+
+    enabled: bool = True
+    micro_chunk_bytes: int = 768
+    micro_overlap_bytes: int = 96
+    guard_band_bytes: int = 256
+
+
+@dataclass
 class EmbeddingConfig:
     """Embedding model parameters."""
 
@@ -117,6 +131,7 @@ class Config:
 
     general: GeneralConfig = field(default_factory=GeneralConfig)
     chunking: ChunkingConfig = field(default_factory=ChunkingConfig)
+    hybrid: HybridConfig = field(default_factory=HybridConfig)
     embedding: EmbeddingConfig = field(default_factory=EmbeddingConfig)
     storage: StorageConfig = field(default_factory=StorageConfig)
     eval: EvalConfig = field(default_factory=EvalConfig)
@@ -137,6 +152,7 @@ class Config:
         return cls(
             general=GeneralConfig(**data.get("general", {})),
             chunking=ChunkingConfig(**data.get("chunking", {})),
+            hybrid=HybridConfig(**data.get("hybrid", {})),
             embedding=EmbeddingConfig(**data.get("embedding", {})),
             storage=StorageConfig(**data.get("storage", {})),
             eval=EvalConfig(**data.get("eval", {})),
@@ -149,6 +165,7 @@ class Config:
         return {
             "general": self.general.__dict__,
             "chunking": self.chunking.__dict__,
+            "hybrid": self.hybrid.__dict__,
             "embedding": self.embedding.__dict__,
             "storage": self.storage.__dict__,
             "eval": self.eval.__dict__,

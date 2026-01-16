@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-01-16
+
+### Added
+- Hybrid chunking: stability base + local overlapping micro-chunks in edit windows
+- `scripts/run_hybrid_experiment.py` for three-way temporal comparison
+- HybridConfig with micro_chunk_bytes, micro_overlap_bytes, guard_band_bytes
+- Localization efficiency metric (re-embeds confined to edit windows)
+- Edit window tracking with parent_chunk_id and edit_window_id
+
+### Results
+- Baseline: 60.7% re-embed, 0.428 top-k overlap, 92 chunks
+- Stability: 63.3% re-embed, 0.318 top-k overlap, 55 chunks
+- Hybrid: 69.7% re-embed, 0.347 top-k overlap, 67 chunks (52.2% micro)
+- Localization Efficiency: 80.7% of re-embeds confined to edit windows
+
+### Technical Notes
+- Hypothesis partially supported: hybrid improves churn over stability (+9.1%)
+- Trade-off: micro-chunking localizes changes but increases total chunk count
+- v1.4.0 takeaway incorporated: coherence vs tolerance are competing objectives
+- AGENT prompt used: `AGENT/1768595075-in.md`
+
+### Paper Artifacts
+- `paper/tables/temporal_hybrid_v1.4.0-20260116.tex`
+- `paper/figures/temporal_hybrid_v1.4.0-20260116.pdf`
+- `paper/figures/temporal_localization_v1.4.0-20260116.pdf`
+
 ## [1.4.0] - 2026-01-16
 
 ### Added
