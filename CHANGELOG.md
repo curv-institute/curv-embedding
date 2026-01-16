@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-01-16
+
+### Added
+- Initial stability-driven chunking baseline
+- Cut-score algorithm with configurable weights and thresholds
+- Offline chunking with local maxima boundary selection
+- Streaming chunking with commit horizon and soft/hard triggers
+- FAISS + SQLite vector store with WAL mode and audit logging
+- Evaluation metrics: drift, churn, overlap, maintenance cost
+- Synthetic data generation for text, code, JSON, and logs
+- Query family generation for reformulation testing
+- Paper-quality plotting and LaTeX table generation
+- PEP 723 CLI scripts for all operations
+- Explicit diagnostic mode labeling (`diagnostics.mode = "proxy_entropy"`)
+
+### Technical Notes
+- Proxy diagnostics only: K=byte_entropy, S=inverse_variance, B=newlines
+- No HHC/LIL integration in v1.0.0 baseline
+- AGENT prompts archived: `AGENT/1768588892-in.md`, `AGENT/1768590839-in.md`
+
 ## [0.1.0] - 2026-01-16
 
 ### Added

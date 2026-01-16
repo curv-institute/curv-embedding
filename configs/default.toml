@@ -70,3 +70,10 @@ reformulations_per_family = 10
 method = "fixed"
 fixed_chunk_bytes = 2048
 fixed_overlap_bytes = 64
+
+[diagnostics]
+# Diagnostic signal mode for v1.0.0
+# "proxy_entropy" = simulated signals via byte entropy/variance (no HHC/LIL)
+# Future modes: "hhc_full", "lil_boundaries"
+mode = "proxy_entropy"
+description = "v1.0.0 baseline uses proxy diagnostics: K=byte_entropy, S=inverse_variance, B=newlines"

@@ -91,6 +91,18 @@ class BaselineConfig:
 
 
 @dataclass
+class DiagnosticsConfig:
+    """Diagnostic signal mode configuration.
+
+    This explicitly labels which diagnostic signals are used for chunking.
+    v1.0.0 uses proxy diagnostics (entropy/variance) rather than full HHC/LIL.
+    """
+
+    mode: str = "proxy_entropy"
+    description: str = "v1.0.0 baseline uses proxy diagnostics: K=byte_entropy, S=inverse_variance, B=newlines"
+
+
+@dataclass
 class GeneralConfig:
     """General experiment parameters."""
 
@@ -109,6 +121,7 @@ class Config:
     storage: StorageConfig = field(default_factory=StorageConfig)
     eval: EvalConfig = field(default_factory=EvalConfig)
     baseline: BaselineConfig = field(default_factory=BaselineConfig)
+    diagnostics: DiagnosticsConfig = field(default_factory=DiagnosticsConfig)
 
     @classmethod
     def from_toml(cls, path: str | Path) -> Config:
@@ -128,6 +141,7 @@ class Config:
             storage=StorageConfig(**data.get("storage", {})),
             eval=EvalConfig(**data.get("eval", {})),
             baseline=BaselineConfig(**data.get("baseline", {})),
+            diagnostics=DiagnosticsConfig(**data.get("diagnostics", {})),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -139,6 +153,7 @@ class Config:
             "storage": self.storage.__dict__,
             "eval": self.eval.__dict__,
             "baseline": self.baseline.__dict__,
+            "diagnostics": self.diagnostics.__dict__,
         }
 
     def config_hash(self) -> str:

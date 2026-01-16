@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "curv-embedding: Stability-Driven Chunking for Vector Database Embeddings"
-version: 0.1.0
+version: 1.0.0
 date-released: 2026-01-16
 url: "https://github.com/curv-institute/curv-embedding"
 repository-code: "https://github.com/curv-institute/curv-embedding"
