@@ -140,3 +140,13 @@ All AGENT files must be committed and pushed.
 ## Guiding Principle
 
 > **Treat representation as a controlled substrate, not an emergent accident.**
+
+## API-error discipline (multi-agent workflows / loops)
+
+An API or server rate-limit error is an **operational interruption — never evidence, and never a reason to conclude, give up, or downgrade a result.** When a batch/agent dies on a rate limit (e.g. "Server is temporarily limiting requests"):
+
+1. **Call it out explicitly** in the report and any run log — distinguish it from a real result.
+2. **Note exactly what work it left undone** (which rounds, items, toolkits, or files did not run).
+3. **Lengthen the cooldown and resume that undone work when the API is stable** — do not abandon it.
+
+**Never count a rate-limited or incomplete batch toward any no-progress / exhaustion / "conclude" threshold.** Only genuine, completed, refereed results count. The only legitimate reasons to stop an exploration are a real positive result or a fully-surveyed evidence-based conclusion — an API error is neither.
